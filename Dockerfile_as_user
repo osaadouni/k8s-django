@@ -1,0 +1,21 @@
+FROM python:3.8-slim
+LABEL maintainer="Omar Saadouni<raptivistos@gmail.com>" 
+
+ENV PROJECT_USER omar
+ENV PROJECT_ROOT /home/$PROJECT_USER
+
+RUN pip install --upgrade pip
+
+RUN adduser -D $PROJECT_USER
+
+USER $PROJECT_USER
+
+WORKDIR $PROJECT_ROOT
+
+COPY --chown=$PROJECT_USER:$PROJECT_USER requirements.txt requirements.txt
+
+RUN pip install --user -r requirements.txt
+
+COPY --chown=$PROJECT_USER:$PROJECT_USER . .
+
+CMD python manage.py runserver 0.0.0.0:8000
