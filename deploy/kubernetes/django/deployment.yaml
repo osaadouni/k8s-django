@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django
+  name: k8s-django-deployment
   labels:
-    app: django
+    app: k8s-django
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: django-container
+      app: k8s-django-container
   template:
     metadata:
       labels:
-        app: django-container
+        app: k8s-django-container
     spec:
       containers:
         - name: django-web
