@@ -16,6 +16,6 @@ spec:
     spec:
       containers:
         - name: django-web
-          image: gitumarkk/k8_django_minikube:part_2
+          image: raptivistos/k8s-django-minikube:1.0.0
           ports:
             - containerPort: 8000
