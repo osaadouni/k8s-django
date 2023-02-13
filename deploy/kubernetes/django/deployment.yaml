@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: django-web
-          image: raptivistos/k8s-django-minikube:1.0.6
+          image: raptivistos/k8s-django-minikube:1.0.7
           command: ['/bin/bash', 'run.sh'] # run migration and start the server
           ports:
             - containerPort: 8000
