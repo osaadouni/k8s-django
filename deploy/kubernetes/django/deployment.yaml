@@ -16,6 +16,22 @@ spec:
     spec:
       containers:
         - name: django-web
-          image: raptivistos/k8s-django-minikube:1.0.0
+          image: raptivistos/k8s-django-minikube:1.0.5
+          command: ['/bin/bash', 'run.sh'] # run migration and start the server
           ports:
             - containerPort: 8000
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: user
+
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-credentials
+                  key: password
+
+            - name: POSTGRES_HOST
+              value: postgres-service
