@@ -1,25 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django-deployment
+  name: celery-worker-deployment
   labels:
-    deployment: django
+    deployment: celery-worker
 spec:
   replicas: 1
   selector:
     matchLabels:
-      pod: django
+      pod: celery-worker
   template:
     metadata:
       labels:
-        pod: django
+        pod: celery-worker
     spec:
       containers:
-        - name: django-web
+        - name: celery-worker
           image: raptivistos/k8s-django-minikube:1.0.1
-          command: ['/bin/bash', 'run.sh'] # run migration and start the server
-          ports:
-            - containerPort: 8000
+          command: ['celery', '-A', 'kubernetes_django', 'worker', '-l', 'INFO']
           env:
             - name: POSTGRES_USER
               valueFrom:
@@ -38,3 +36,4 @@ spec:
 
             - name: REDIS_HOST
               value: redis-service
+

@@ -1,25 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: django-deployment
+  name: daphne-deployment
   labels:
-    deployment: django
+    deployment: daphne
 spec:
   replicas: 1
   selector:
     matchLabels:
-      pod: django
+      pod: daphne
   template:
     metadata:
       labels:
-        pod: django
+        pod: daphne
     spec:
       containers:
-        - name: django-web
+        - name: daphne-web
           image: raptivistos/k8s-django-minikube:1.0.1
-          command: ['/bin/bash', 'run.sh'] # run migration and start the server
+          command: ["daphne", "kubernetes_django.asgi:application", "--bind", "0.0.0.0", "--port", "9000"] 
           ports:
-            - containerPort: 8000
+            - containerPort: 9000
           env:
             - name: POSTGRES_USER
               valueFrom:

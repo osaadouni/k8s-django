@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-redis-deployment
+  name: redis-deployment
   labels:
     deployment: redis
 spec:
   selector:
     matchLabels:
-      pod: k8s-redis-pod
+      pod: redis
   replicas: 1
   template:
     metadata:
       labels:
-        pod: k8s-redis-pod
+        pod: redis
     spec:
       containers:
-        - name: k8s-redis-container
+        - name: redis
           image: redis
           resources:
             requests:

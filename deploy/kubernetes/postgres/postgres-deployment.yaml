@@ -1,20 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: k8s-postgres-deployment
+  name: postgres-deployment
+  labels:
+    deployment: postgres
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgres-container
+      pod: postgres
   template:
     metadata:
       labels:
-        app: postgres-container
+        pod: postgres
         tier: backend
     spec:
       containers:
-        - name: postgres-container
+        - name: postgres
           image: postgres:9.6.6
           env:
             - name: POSTGRES_USER
